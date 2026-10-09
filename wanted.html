@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ClassCycle - Wanted</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="index.html" class="nav-logo">ClassCycle</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="sell.html">Sell</a>
+      <a href="wanted.html">Wanted</a>
+      <a href="wishlist.html">Wishlist</a>
+      <a href="messages.html">Messages</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="mission">
+      <p>Can't find what you need? Post a request and neighbors who have it can reach out to you directly.</p>
+    </section>
+
+    <button class="filter-toggle-btn" id="request-toggle">➕ Post a Request</button>
+
+    <div class="page-container" id="request-form-wrap" style="display: none;">
+      <form id="request-form">
+        <input type="text" id="r-title" placeholder="What do you need? (e.g. AP Chemistry textbook)" required>
+        <textarea id="r-description" rows="3" placeholder="Details (optional): edition, class, condition you can accept"></textarea>
+        <input type="number" id="r-budget" placeholder="Max budget in $ (optional)" min="0">
+        <select id="r-category">
+          <option value="">Subject (optional)</option>
+          <option value="math">Math</option>
+          <option value="science">Science</option>
+          <option value="history">History</option>
+          <option value="english">English</option>
+          <option value="general supplies">General Supplies</option>
+        </select>
+        <select id="r-location" required>
+          <option value="">Pickup area</option>
+          <option value="glencoe">Glencoe</option>
+          <option value="winnetka">Winnetka</option>
+          <option value="wilmette">Wilmette</option>
+          <option value="evanston">Evanston</option>
+          <option value="highland park">Highland Park</option>
+          <option value="northfield">Northfield</option>
+          <option value="kenilworth">Kenilworth</option>
+          <option value="deerfield">Deerfield</option>
+          <option value="skokie">Skokie</option>
+          <option value="other">Other nearby village</option>
+        </select>
+        <input type="text" id="r-name" placeholder="Your first name" required>
+        <button type="submit">Post Request</button>
+      </form>
+      <p id="request-status"></p>
+    </div>
+
+    <h2>Open Requests</h2>
+    <div class="listings-grid" id="requests-grid"></div>
+  </main>
+
+  <script type="module" src="wanted.js"></script>
+</body>
+</html>
