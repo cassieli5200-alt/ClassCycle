@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ClassCycle - Sell</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="index.html" class="nav-logo">ClassCycle</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="sell.html">Sell</a>
+      <a href="wishlist.html">Wishlist</a>
+      <a href="messages.html">Messages</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <div class="page-container">
+    <h1>Post a Listing</h1>
+    <form id="sell-form">
+      <input type="text" id="f-title" placeholder="Item title (e.g. AP Bio Textbook)" required>
+      <input type="number" id="f-price" placeholder="Price ($)" required>
+
+      <select id="f-location" required>
+        <option value="">Pickup location</option>
+        <option value="glencoe">Glencoe</option>
+        <option value="winnetka">Winnetka</option>
+        <option value="wilmette">Wilmette</option>
+        <option value="evanston">Evanston</option>
+        <option value="highland park">Highland Park</option>
+        <option value="northfield">Northfield</option>
+        <option value="kenilworth">Kenilworth</option>
+        <option value="deerfield">Deerfield</option>
+        <option value="skokie">Skokie</option>
+        <option value="other">Other nearby village</option>
+      </select>
+
+      <label><input type="checkbox" id="f-shipping"> Willing to ship (buyer arranges/covers cost)</label>
+
+      <select id="f-condition" required>
+        <option value="">Condition</option>
+        <option>New</option>
+        <option>Like New</option>
+        <option>Good</option>
+        <option>Fair</option>
+      </select>
+
+      <fieldset>
+        <legend>Categories (select all that apply)</legend>
+        <label><input type="checkbox" name="category" value="math"> Math</label>
+        <label><input type="checkbox" name="category" value="science"> Science</label>
+        <label><input type="checkbox" name="category" value="history"> History</label>
+        <label><input type="checkbox" name="category" value="english"> English</label>
+        <label><input type="checkbox" name="category" value="general supplies"> General Supplies</label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Subcategories (optional, select all that apply)</legend>
+        <label><input type="checkbox" name="subcategory" value="calculators"> Calculators</label>
+        <label><input type="checkbox" name="subcategory" value="algebra"> Algebra</label>
+        <label><input type="checkbox" name="subcategory" value="geometry"> Geometry</label>
+        <label><input type="checkbox" name="subcategory" value="biology"> Biology</label>
+        <label><input type="checkbox" name="subcategory" value="chemistry"> Chemistry</label>
+        <label><input type="checkbox" name="subcategory" value="physics"> Physics</label>
+        <label><input type="checkbox" name="subcategory" value="american"> American History</label>
+        <label><input type="checkbox" name="subcategory" value="literature"> Literature</label>
+        <label><input type="checkbox" name="subcategory" value="notebooks"> Notebooks & Paper</label>
+        <label><input type="checkbox" name="subcategory" value="backpacks"> Backpacks & Bags</label>
+      </fieldset>
+
+      <textarea id="f-description" placeholder="Additional details (optional) — e.g. 'some highlighting on ch. 3-5, no torn pages'" rows="3"></textarea>
+
+      <input type="text" id="f-seller" placeholder="Your name" required>
+      <input type="text" id="f-contact" placeholder="Email or phone (shown to buyers for verification)" required>
+      <input type="url" id="f-image" placeholder="Image URL (paste a link from imgbb.com)" required>
+      <button type="submit">Post Listing</button>
+    </form>
+    <p id="sell-status"></p>
+  </div>
+
+  <script type="module" src="sell.js"></script>
+</body>
+</html>

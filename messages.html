@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ClassCycle - Messages</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="index.html" class="nav-logo">ClassCycle</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="sell.html">Sell</a>
+      <a href="wishlist.html">Wishlist</a>
+      <a href="messages.html">Messages</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <div class="page-container" id="convo-list-view">
+    <h1>Messages</h1>
+    <div id="conversation-list"></div>
+  </div>
+
+  <div class="page-container" id="thread-view" style="display:none;">
+    <a href="messages.html" class="back-link">&larr; Back to all messages</a>
+    <h2 id="thread-title"></h2>
+    <div id="messages-thread"></div>
+    <div class="message-input-row">
+      <input type="text" id="message-input" placeholder="Type a message...">
+      <button id="send-btn">Send</button>
+    </div>
+  </div>
+
+  <script type="module" src="messages.js"></script>
+</body>
+</html>

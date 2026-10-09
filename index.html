@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ClassCycle - Home</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="index.html" class="nav-logo">ClassCycle</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="sell.html">Sell</a>
+      <a href="wishlist.html">Wishlist</a>
+      <a href="messages.html">Messages</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      
+    </div>
+  </nav>
+
+  <section class="mission">
+    <p>ClassCycle is a school supply resell site, where unused supplies such as textbooks can be resold at lower prices to people who need them. We aim to decrease the financial barrier of scholastic success and promote the expansion of education worldwide.</p>
+  </section>
+
+<main>
+  <input type="text" id="search-input" placeholder="Search listings..." class="search-bar">
+
+  <div class="filters-wrapper">
+    <div class="category-bar" id="category-bar">
+      <button class="category-btn active" data-category="all">All</button>
+      <button class="category-btn" data-category="math">Math</button>
+      <button class="category-btn" data-category="science">Science</button>
+      <button class="category-btn" data-category="history">History</button>
+      <button class="category-btn" data-category="english">English</button>
+      <button class="category-btn" data-category="general supplies">General Supplies</button>
+    </div>
+
+    <div class="subcategory-bar" id="subcategory-bar"></div>
+
+    <div class="price-filter">
+      <label>Price: $<input type="number" id="price-min" placeholder="0" min="0"> — $<input type="number" id="price-max" placeholder="Any" min="0"></label>
+    </div>
+    <button class="filter-toggle-btn" id="location-toggle">📍 Filter by Location</button>
+<div class="location-bar" id="location-bar" style="display: none;">
+  <button class="location-btn active" data-location="all">Any Location</button>
+  <button class="location-btn" data-location="glencoe">Glencoe</button>
+  <button class="location-btn" data-location="winnetka">Winnetka</button>
+  <button class="location-btn" data-location="wilmette">Wilmette</button>
+  <button class="location-btn" data-location="evanston">Evanston</button>
+  <button class="location-btn" data-location="highland park">Highland Park</button>
+  <button class="location-btn" data-location="northfield">Northfield</button>
+  <button class="location-btn" data-location="kenilworth">Kenilworth</button>
+  <button class="location-btn" data-location="deerfield">Deerfield</button>
+  <button class="location-btn" data-location="skokie">Skokie</button>
+  <button class="location-btn" data-location="other">Other Nearby</button>
+</div>
+  </div>
+
+  <h2>Available Textbooks</h2>
+  <div class="listings-grid"></div>
+</main>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
