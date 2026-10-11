@@ -11,10 +11,18 @@ function getDeviceId() {
 }
 const deviceId = getDeviceId();
 
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
 const params = new URLSearchParams(window.location.search);
 const convoId = params.get('convo');
 const listView = document.getElementById('convo-list-view');
 const threadView = document.getElementById('thread-view');
+
+let myRole = 'buyer'; // set properly once a conversation loads
 
 if (convoId) { showThread(convoId); } else { showConversationList(); }
 
@@ -24,21 +32,27 @@ async function showConversationList() {
   const listEl = document.getElementById('conversation-list');
   listEl.innerHTML = 'Loading...';
 
-  const q = query(collection(db, "conversations"), where("buyerId", "==", deviceId));
-  const snapshot = await getDocs(q);
+  // Chats where I'm the buyer OR the seller (wanted-board replies)
+  const [asBuyer, asSeller] = await Promise.all([
+    getDocs(query(collection(db, "conversations"), where("buyerId", "==", deviceId))),
+    getDocs(query(collection(db, "conversations"), where("sellerId", "==", deviceId)))
+  ]);
 
-  if (snapshot.empty) {
+  const convos = new Map();
+  [asBuyer, asSeller].forEach(snap => snap.forEach(d => convos.set(d.id, d.data())));
+
+  if (convos.size === 0) {
     listEl.innerHTML = '<p class="wishlist-empty">No conversations yet.</p>';
     return;
   }
 
   listEl.innerHTML = '';
-  snapshot.forEach((docSnap) => {
-    const convo = docSnap.data();
+  convos.forEach((convo, id) => {
     const item = document.createElement('a');
-    item.href = `messages.html?convo=${docSnap.id}`;
+    item.href = `messages.html?convo=${id}`;
     item.classList.add('conversation-item');
-    item.innerHTML = `<strong>${convo.listingTitle}</strong><span>Seller: ${convo.sellerName}</span>`;
+    const label = convo.kind === 'wanted' ? 'Helper' : 'Seller';
+    item.innerHTML = `<strong>${escapeHtml(convo.listingTitle)}</strong><span>${label}: ${escapeHtml(convo.sellerName)}</span>`;
     listEl.appendChild(item);
   });
 }
@@ -50,7 +64,10 @@ async function showThread(id) {
   const convoSnap = await getDoc(doc(db, "conversations", id));
   if (!convoSnap.exists()) return;
   const convo = convoSnap.data();
-  document.getElementById('thread-title').textContent = `${convo.listingTitle} — Seller: ${convo.sellerName}`;
+
+  myRole = convo.buyerId === deviceId ? 'buyer' : 'seller';
+  const label = convo.kind === 'wanted' ? 'Helper' : 'Seller';
+  document.getElementById('thread-title').textContent = `${convo.listingTitle} — ${label}: ${convo.sellerName}`;
 
   const q = query(collection(db, "conversations", id, "messages"), orderBy("timestamp", "asc"));
 
@@ -60,11 +77,12 @@ async function showThread(id) {
     snapshot.forEach((msgSnap) => {
       const msg = msgSnap.data();
       const bubble = document.createElement('div');
-      bubble.classList.add('message-bubble', msg.sender === 'buyer' ? 'buyer-msg' : 'seller-msg');
-      let content = `<p>${msg.text}</p>`;
+      // my messages on the right, theirs on the left
+      bubble.classList.add('message-bubble', msg.sender === myRole ? 'buyer-msg' : 'seller-msg');
+      let content = `<p>${escapeHtml(msg.text)}</p>`;
       if (msg.type === 'offer') {
-        content += `<span class="offer-status">Status: ${msg.status}</span>`;
-        if (msg.status === 'pending') {
+        content += `<span class="offer-status">Status: ${escapeHtml(msg.status)}</span>`;
+        if (msg.status === 'pending' && myRole === 'seller') {
           content += `<button class="accept-offer-btn" data-msgid="${msgSnap.id}">Accept Offer</button>`;
         }
       }
@@ -87,7 +105,5 @@ async function sendMessage(id) {
   const text = input.value.trim();
   if (!text) return;
   await addDoc(collection(db, "conversations", id, "messages"), {
-    sender: 'buyer', text, type: 'text', timestamp: new Date()
-  });
-  input.value = '';
-}
+    sender: myRole, text, type: 'text', timestamp: new Date()
+  })

@@ -26,16 +26,17 @@ function getDeviceId() {
 }
 const deviceId = getDeviceId();
 
-async function getOrCreateConversation(listingId, listingTitle, sellerName) {
+async function getOrCreateConversation(listingId, listingTitle, sellerName, sellerId) {
   const convoId = `${listingId}_${deviceId}`;
   const convoRef = doc(db, "conversations", convoId);
   await setDoc(convoRef, {
     listingId, listingTitle, sellerName,
+    sellerId: sellerId || null,
     buyerId: deviceId,
     updatedAt: new Date()
   }, { merge: true });
-  return convoId;
-}
+  return convoId;}
+
 
 async function addMessage(convoId, messageData) {
   const messagesRef = collection(db, "conversations", convoId, "messages");
@@ -49,14 +50,22 @@ listingsGrid.addEventListener('click', async (e) => {
   const listingTitle = card.querySelector('h3').textContent;
   const sellerName = card.querySelector('.seller').textContent.replace('Seller: ', '');
   const price = card.querySelector('.price').textContent.replace('$', '');
+  const listing = allListings.find(l => l.id === listingId);
+const sellerId = listing ? listing.sellerId : null;
+
+if (sellerId && sellerId === deviceId && (e.target.closest('.message-btn') || e.target.closest('.buy-btn') || e.target.closest('.offer-btn'))) {
+  alert("This is your own listing.");
+  return;
+}
+
 
   if (e.target.closest('.message-btn')) {
-    const convoId = await getOrCreateConversation(listingId, listingTitle, sellerName);
+    const convoId = await getOrCreateConversation(listingId, listingTitle, sellerName, sellerId);
     window.location.href = `messages.html?convo=${convoId}`;
   }
 
   if (e.target.closest('.buy-btn')) {
-    const convoId = await getOrCreateConversation(listingId, listingTitle, sellerName);
+    const convoId = await getOrCreateConversation(listingId, listingTitle, sellerName, sellerId);
     await addMessage(convoId, {
       sender: 'buyer',
       text: `Hi, I would like to buy this for $${price}`,
@@ -68,7 +77,7 @@ listingsGrid.addEventListener('click', async (e) => {
   if (e.target.closest('.offer-btn')) {
     const customAmount = prompt(`What amount would you like to offer for "${listingTitle}"?`);
     if (!customAmount || isNaN(customAmount)) return;
-    const convoId = await getOrCreateConversation(listingId, listingTitle, sellerName);
+    const convoId = await getOrCreateConversation(listingId, listingTitle, sellerName, sellerId);
     await addMessage(convoId, {
       sender: 'buyer',
       text: `Hi, I'd like to offer $${customAmount} for this.`,
@@ -309,17 +318,4 @@ listingsGrid.addEventListener('click', async (e) => {
       await deleteDoc(wishlistRef);
       button.textContent = '🔖 Save';
       button.classList.remove('saved');
-    } else {
-      await setDoc(wishlistRef, {
-        deviceId: deviceId,
-        listingId: listingId,
-        title: card.querySelector('h3').textContent,
-        price: card.querySelector('.price').textContent,
-        imageUrl: card.querySelector('img').src,
-        savedAt: new Date()
-      });
-      button.textContent = '✅ Saved';
-      button.classList.add('saved');
-    }
-  }
-});
+    } else
