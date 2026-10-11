@@ -77,7 +77,9 @@
 
       <input type="text" id="f-seller" placeholder="Your name" required>
       <input type="text" id="f-contact" placeholder="Email or phone (shown to buyers for verification)" required>
-      <input type="url" id="f-image" placeholder="Image URL (paste a link from imgbb.com)" required>
+      <label for="f-image">Photo of your item</label>
+<input type="file" id="f-image" accept="image/*" required>
+<img id="image-preview" class="image-preview" alt="Preview of your photo" style="display:none;">
       <button type="submit">Post Listing</button>
     </form>
     <p id="sell-status"></p>
