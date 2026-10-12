@@ -35,7 +35,8 @@ async function getOrCreateConversation(listingId, listingTitle, sellerName, sell
     buyerId: deviceId,
     updatedAt: new Date()
   }, { merge: true });
-  return convoId;}
+  return convoId;
+}
 
 
 async function addMessage(convoId, messageData) {
@@ -51,12 +52,12 @@ listingsGrid.addEventListener('click', async (e) => {
   const sellerName = card.querySelector('.seller').textContent.replace('Seller: ', '');
   const price = card.querySelector('.price').textContent.replace('$', '');
   const listing = allListings.find(l => l.id === listingId);
-const sellerId = listing ? listing.sellerId : null;
+  const sellerId = listing ? listing.sellerId : null;
 
-if (sellerId && sellerId === deviceId && (e.target.closest('.message-btn') || e.target.closest('.buy-btn') || e.target.closest('.offer-btn'))) {
-  alert("This is your own listing.");
-  return;
-}
+  if (sellerId && sellerId === deviceId && (e.target.closest('.message-btn') || e.target.closest('.buy-btn') || e.target.closest('.offer-btn'))) {
+    alert("This is your own listing.");
+    return;
+  }
 
 
   if (e.target.closest('.message-btn')) {
@@ -318,4 +319,17 @@ listingsGrid.addEventListener('click', async (e) => {
       await deleteDoc(wishlistRef);
       button.textContent = '🔖 Save';
       button.classList.remove('saved');
-    } else
+    } else {
+      await setDoc(wishlistRef, {
+        deviceId: deviceId,
+        listingId: listingId,
+        title: card.querySelector('h3').textContent,
+        price: card.querySelector('.price').textContent,
+        imageUrl: card.querySelector('img').src,
+        savedAt: new Date()
+      });
+      button.textContent = '✅ Saved';
+      button.classList.add('saved');
+    }
+  }
+});
