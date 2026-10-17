@@ -32,7 +32,7 @@ async function showConversationList() {
   const listEl = document.getElementById('conversation-list');
   listEl.innerHTML = 'Loading...';
 
-  // Chats where I'm the buyer OR the seller (wanted-board replies)
+  // Chats where I'm the buyer OR the seller
   const [asBuyer, asSeller] = await Promise.all([
     getDocs(query(collection(db, "conversations"), where("buyerId", "==", deviceId))),
     getDocs(query(collection(db, "conversations"), where("sellerId", "==", deviceId)))
@@ -74,11 +74,12 @@ async function showThread(id) {
   onSnapshot(q, (snapshot) => {
     const threadEl = document.getElementById('messages-thread');
     threadEl.innerHTML = '';
+
     snapshot.forEach((msgSnap) => {
       const msg = msgSnap.data();
       const bubble = document.createElement('div');
-      // my messages on the right, theirs on the left
       bubble.classList.add('message-bubble', msg.sender === myRole ? 'buyer-msg' : 'seller-msg');
+
       let content = `<p>${escapeHtml(msg.text)}</p>`;
       if (msg.type === 'offer') {
         content += `<span class="offer-status">Status: ${escapeHtml(msg.status)}</span>`;
@@ -89,6 +90,7 @@ async function showThread(id) {
       bubble.innerHTML = content;
       threadEl.appendChild(bubble);
     });
+
     threadEl.querySelectorAll('.accept-offer-btn').forEach((btn) => {
       btn.addEventListener('click', async () => {
         await updateDoc(doc(db, "conversations", id, "messages", btn.dataset.msgid), { status: 'accepted' });
@@ -106,4 +108,6 @@ async function sendMessage(id) {
   if (!text) return;
   await addDoc(collection(db, "conversations", id, "messages"), {
     sender: myRole, text, type: 'text', timestamp: new Date()
-  })
+  });
+  input.value = '';
+}
