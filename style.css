@@ -564,3 +564,20 @@ button:active {
   align-self: flex-start;
 }
 #request-form button[type="submit"]:hover { background-color: var(--forest-dark); }
+
+.image-preview {
+  max-width: 200px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  align-self: flex-start;
+}
+#sell-form label[for="f-image"] { font-size: 14px; color: #6B7A73; }
+.subcat-group { margin-bottom: 12px; }
+.subcat-title {
+  display: block;
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--forest-dark);
+  margin-bottom: 2px;
+}

@@ -59,18 +59,60 @@
         <label><input type="checkbox" name="category" value="general supplies"> General Supplies</label>
       </fieldset>
 
-      <fieldset>
+            <fieldset>
         <legend>Subcategories (optional, select all that apply)</legend>
-        <label><input type="checkbox" name="subcategory" value="calculators"> Calculators</label>
-        <label><input type="checkbox" name="subcategory" value="algebra"> Algebra</label>
-        <label><input type="checkbox" name="subcategory" value="geometry"> Geometry</label>
-        <label><input type="checkbox" name="subcategory" value="biology"> Biology</label>
-        <label><input type="checkbox" name="subcategory" value="chemistry"> Chemistry</label>
-        <label><input type="checkbox" name="subcategory" value="physics"> Physics</label>
-        <label><input type="checkbox" name="subcategory" value="american"> American History</label>
-        <label><input type="checkbox" name="subcategory" value="literature"> Literature</label>
-        <label><input type="checkbox" name="subcategory" value="notebooks"> Notebooks & Paper</label>
-        <label><input type="checkbox" name="subcategory" value="backpacks"> Backpacks & Bags</label>
+
+        <div class="subcat-group">
+          <span class="subcat-title">Math</span>
+          <label><input type="checkbox" name="subcategory" value="algebra"> Algebra</label>
+          <label><input type="checkbox" name="subcategory" value="geometry"> Geometry</label>
+          <label><input type="checkbox" name="subcategory" value="calculus"> Calculus</label>
+          <label><input type="checkbox" name="subcategory" value="statistics"> Statistics</label>
+          <label><input type="checkbox" name="subcategory" value="trigonometry"> Trigonometry</label>
+        </div>
+
+        <div class="subcat-group">
+          <span class="subcat-title">Science</span>
+          <label><input type="checkbox" name="subcategory" value="biology"> Biology</label>
+          <label><input type="checkbox" name="subcategory" value="chemistry"> Chemistry</label>
+          <label><input type="checkbox" name="subcategory" value="physics"> Physics</label>
+          <label><input type="checkbox" name="subcategory" value="environmental"> Environmental Science</label>
+          <label><input type="checkbox" name="subcategory" value="anatomy"> Anatomy &amp; Physiology</label>
+        </div>
+
+        <div class="subcat-group">
+          <span class="subcat-title">History</span>
+          <label><input type="checkbox" name="subcategory" value="american"> American History</label>
+          <label><input type="checkbox" name="subcategory" value="european"> European History</label>
+          <label><input type="checkbox" name="subcategory" value="world"> World History</label>
+          <label><input type="checkbox" name="subcategory" value="government"> Government &amp; Civics</label>
+          <label><input type="checkbox" name="subcategory" value="economics"> Economics</label>
+        </div>
+
+        <div class="subcat-group">
+          <span class="subcat-title">English</span>
+          <label><input type="checkbox" name="subcategory" value="literature"> Literature</label>
+          <label><input type="checkbox" name="subcategory" value="grammar"> Grammar &amp; Writing</label>
+          <label><input type="checkbox" name="subcategory" value="vocabulary"> Vocabulary</label>
+          <label><input type="checkbox" name="subcategory" value="testprep"> Test Prep (SAT/ACT)</label>
+          <label><input type="checkbox" name="subcategory" value="poetry"> Poetry</label>
+        </div>
+
+        <div class="subcat-group">
+          <span class="subcat-title">General Supplies</span>
+          <label><input type="checkbox" name="subcategory" value="notebooks"> Notebooks &amp; Paper</label>
+          <label><input type="checkbox" name="subcategory" value="writing"> Pens &amp; Pencils</label>
+          <label><input type="checkbox" name="subcategory" value="binders"> Binders &amp; Folders</label>
+          <label><input type="checkbox" name="subcategory" value="backpacks"> Backpacks &amp; Bags</label>
+          <label><input type="checkbox" name="subcategory" value="calculators"> Calculators</label>
+          <label><input type="checkbox" name="subcategory" value="art"> Art Supplies</label>
+          <label><input type="checkbox" name="subcategory" value="highlighters"> Highlighters &amp; Markers</label>
+          <label><input type="checkbox" name="subcategory" value="planners"> Planners &amp; Agendas</label>
+          <label><input type="checkbox" name="subcategory" value="lab"> Lab Equipment</label>
+          <label><input type="checkbox" name="subcategory" value="tech"> Tech Accessories</label>
+          <label><input type="checkbox" name="subcategory" value="storage"> Lockers &amp; Storage</label>
+          <label><input type="checkbox" name="subcategory" value="misc"> Miscellaneous</label>
+        </div>
       </fieldset>
 
       <textarea id="f-description" placeholder="Additional details (optional) — e.g. 'some highlighting on ch. 3-5, no torn pages'" rows="3"></textarea>
